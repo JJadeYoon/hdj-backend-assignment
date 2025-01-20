@@ -22,12 +22,12 @@ class Patient {
     val registrationNumber: String? = null
 
     @Enumerated(EnumType.STRING)
-    @Column(length = 10, nullable = false)
+    @Column(length = 10, nullable = true)
     val sexCode: SexCode? = null
 
-    @Column(length = 10, nullable = false)
+    @Column(length = 10, nullable = true)
     val birthDate: String? = null
 
-    @Column(length = 20, nullable = false)
+    @Column(length = 20, nullable = true)
     var phoneNumber: String? = null
 }

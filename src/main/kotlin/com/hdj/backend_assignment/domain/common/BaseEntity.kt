@@ -14,5 +14,5 @@ class BaseEntity {
     val createdAt: LocalDateTime? = null
 
     @LastModifiedDate
-    val updatedAt: LocalDateTime? = null
+    var updatedAt: LocalDateTime? = null
 }
