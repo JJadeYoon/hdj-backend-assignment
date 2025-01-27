@@ -4,7 +4,6 @@ import com.hdj.backend_assignment.apiPayload.ApiResponse
 import com.hdj.backend_assignment.service.PatientService
 import com.hdj.backend_assignment.web.dto.PatientRequestDTO
 import com.hdj.backend_assignment.web.dto.PatientResponseDTO
-import lombok.RequiredArgsConstructor
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/patients")
-@RequiredArgsConstructor
 class PatientRestController(private val patientService: PatientService) {
 
     @PostMapping("/register")
