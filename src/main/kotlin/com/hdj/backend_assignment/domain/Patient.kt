@@ -5,7 +5,16 @@ import jakarta.persistence.*
 
 @Entity
 @Table(name = "patient")
-class Patient(id: Long, hospital: Hospital, patientName: String, registrationNumber: String, sexCode: SexCode) {
+class Patient(
+    id: Long,
+    hospital: Hospital,
+    patientName: String,
+    registrationNumber:
+    String,
+    sexCode: SexCode,
+    birthDate: String?,
+    phoneNumber: String?
+) {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
