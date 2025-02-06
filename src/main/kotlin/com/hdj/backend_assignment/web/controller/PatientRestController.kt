@@ -1,6 +1,7 @@
 package com.hdj.backend_assignment.web.controller
 
 import com.hdj.backend_assignment.apiPayload.ApiResponse
+import com.hdj.backend_assignment.converter.PatientConverter
 import com.hdj.backend_assignment.service.PatientService
 import com.hdj.backend_assignment.web.dto.PatientRequestDTO
 import com.hdj.backend_assignment.web.dto.PatientResponseDTO
@@ -15,6 +16,9 @@ class PatientRestController(private val patientService: PatientService) {
 
     @PostMapping("/register")
     fun registerPatient(@RequestBody request: PatientRequestDTO.RegisterDTO): ApiResponse<PatientResponseDTO.RegisterResultDTO> {
-        return ApiResponse.ok(patientService.registerPatient(request))
+
+        val patient = patientService.registerPatient(request)
+
+        return ApiResponse.ok(PatientConverter.toRegisterResultDTO(patient))
     }
 }
