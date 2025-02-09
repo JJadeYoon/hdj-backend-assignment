@@ -5,25 +5,34 @@ import jakarta.persistence.*
 
 @Entity
 @Table(name = "patient")
-class Patient {
+class Patient(
+    id: Long,
+    hospital: Hospital,
+    patientName: String,
+    registrationNumber:
+    String,
+    sexCode: SexCode,
+    birthDate: String?,
+    phoneNumber: String?
+) {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null
+    val id: Long = id
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hospital_id")
-    val hospital: Hospital? = null
+    val hospital: Hospital = hospital
 
     @Column(length = 45, nullable = false)
-    val patientName: String? = null
+    val patientName: String = patientName
 
     @Column(length = 13, nullable = false)
-    val registrationNumber: String? = null
+    val registrationNumber: String = registrationNumber
 
     @Enumerated(EnumType.STRING)
     @Column(length = 10, nullable = true)
-    val sexCode: SexCode? = null
+    val sexCode: SexCode = sexCode
 
     @Column(length = 10, nullable = true)
     val birthDate: String? = null

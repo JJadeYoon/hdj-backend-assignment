@@ -7,24 +7,24 @@ import java.time.LocalDateTime
 
 @Entity
 @Table(name = "visit")
-class Visit {
+class Visit(id: Long, hospital: Hospital, patient: Patient, visitDateTime: LocalDateTime, visitStatusCode: VisitStatusCode) {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null
+    val id: Long = id
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hospital_id", nullable = false)
-    val hospital: Hospital? = null
+    val hospital: Hospital = hospital
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_id", nullable = false)
-    val patient: Patient? = null
+    val patient: Patient = patient
 
     @Column(nullable = false)
-    val visitDateTime: LocalDateTime? = null
+    val visitDateTime: LocalDateTime = visitDateTime
 
     @Enumerated(EnumType.STRING)
     @Column(length = 10, nullable = false)
-    val visitStatusCode: VisitStatusCode? = null
+    val visitStatusCode: VisitStatusCode = visitStatusCode
 }
