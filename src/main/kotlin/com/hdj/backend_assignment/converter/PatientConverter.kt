@@ -7,15 +7,8 @@ import com.hdj.backend_assignment.web.dto.PatientRequestDTO
 import com.hdj.backend_assignment.web.dto.PatientResponseDTO
 
 class PatientConverter {
+
     companion object {
-        fun toRegisterResultDTO(patient:Patient): PatientResponseDTO.RegisterResultDTO {
-            return PatientResponseDTO.RegisterResultDTO(
-                patientId = patient.id,
-                hospitalId = patient.hospital.id,
-                patientName = patient.patientName,
-                registrationNumber = patient.registrationNumber
-            )
-        }
 
         fun toPatient(request: PatientRequestDTO.RegisterDTO, hospital: Hospital): Patient {
             return Patient(
@@ -28,5 +21,26 @@ class PatientConverter {
                 phoneNumber = request.phoneNumber
             )
         }
+
+        fun toRegisterResultDTO(patient:Patient): PatientResponseDTO.RegisterResultDTO {
+            return PatientResponseDTO.RegisterResultDTO(
+                patientId = patient.id,
+                hospitalId = patient.hospital.id,
+                patientName = patient.patientName,
+                registrationNumber = patient.registrationNumber
+            )
+        }
+
+        fun toGetResultDTO(patient: Patient): PatientResponseDTO.GetResultDTO {
+            return PatientResponseDTO.GetResultDTO(
+                patientId = patient.id,
+                hospitalId = patient.hospital.id,
+                patientName = patient.patientName,
+                registrationNumber = patient.registrationNumber,
+                sexCode = patient.sexCode.description,
+                birthDate = patient.birthDate,
+                phoneNumber = patient.phoneNumber,
+                )
+            }
     }
 }
