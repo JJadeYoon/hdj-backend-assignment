@@ -3,9 +3,11 @@ package com.hdj.backend_assignment.domain
 import com.hdj.backend_assignment.domain.common.BaseEntity
 import com.hdj.backend_assignment.global.enums.SexCode
 import jakarta.persistence.*
+import org.hibernate.annotations.SoftDelete
 
 @Entity
 @Table(name = "patient")
+@SoftDelete
 class Patient(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
