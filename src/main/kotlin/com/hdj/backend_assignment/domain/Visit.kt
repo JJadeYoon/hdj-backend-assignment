@@ -1,30 +1,27 @@
 package com.hdj.backend_assignment.domain
 
+import com.hdj.backend_assignment.domain.common.BaseEntity
 import com.hdj.backend_assignment.global.enums.VisitStatusCode
 import jakarta.persistence.*
-import java.time.LocalDate
 import java.time.LocalDateTime
 
 @Entity
 @Table(name = "visit")
-class Visit(id: Long, hospital: Hospital, patient: Patient, visitDateTime: LocalDateTime, visitStatusCode: VisitStatusCode) {
-
+class Visit(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = id
+    val id: Long,
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "hospital_id", nullable = false)
-    val hospital: Hospital = hospital
+    @JoinColumn(name = "hospital_id")
+    val hospital: Hospital,
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "patient_id", nullable = false)
-    val patient: Patient = patient
+    @JoinColumn(name = "patient_id")
+    var patient: Patient,
 
-    @Column(nullable = false)
-    val visitDateTime: LocalDateTime = visitDateTime
+    var visitDateTime: LocalDateTime,
 
     @Enumerated(EnumType.STRING)
-    @Column(length = 10, nullable = false)
-    val visitStatusCode: VisitStatusCode = visitStatusCode
-}
+    var visitStatusCode: VisitStatusCode
+): BaseEntity()

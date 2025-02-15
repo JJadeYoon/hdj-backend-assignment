@@ -1,21 +1,18 @@
 package com.hdj.backend_assignment.domain
 
+import com.hdj.backend_assignment.domain.common.BaseEntity
 import jakarta.persistence.*
 
 @Entity
 @Table(name = "hospital")
-class Hospital(id: Long, hospitalName: String, medicalInstitutionNumber: String, hospitalDirectorName: String) {
-
+class Hospital(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = id
+    val id: Long,
 
-    @Column(length = 45, nullable = false)
-    val hospitalName: String = hospitalName
+    var hospitalName: String,
 
-    @Column(length = 20, nullable = false)
-    val medicalInstitutionNumber: String = medicalInstitutionNumber
+    var medicalInstitutionNumber: String,
 
-    @Column(length = 10, nullable = false)
-    var hospitalDirectorName: String = hospitalDirectorName
-}
+    var hospitalDirectorName: String
+): BaseEntity()
