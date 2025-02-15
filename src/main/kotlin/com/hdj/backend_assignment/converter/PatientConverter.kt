@@ -23,7 +23,7 @@ class PatientConverter {
                 hospital = hospital,
                 patientName = request.patientName,
                 registrationNumber = request.registrationNumber,
-                sexCode = SexCode.from(request.sexCode!!),
+                sexCode = SexCode.from(request.sexCode),
                 birthDate = request.birthDate,
                 phoneNumber = request.phoneNumber
             )

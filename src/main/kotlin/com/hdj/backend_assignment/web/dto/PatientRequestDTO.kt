@@ -7,7 +7,7 @@ class PatientRequestDTO {
         val hospitalId: Long,
         val patientName: String,
         val registrationNumber: String,
-        val sexCode: String? = null,
+        val sexCode: String,
         val birthDate: String? = null,
         val phoneNumber: String? = null
     )
