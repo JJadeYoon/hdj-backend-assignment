@@ -3,6 +3,7 @@ package com.hdj.backend_assignment.service
 import com.hdj.backend_assignment.converter.PatientConverter
 import com.hdj.backend_assignment.converter.PatientConverter.Companion.toGetResultDTO
 import com.hdj.backend_assignment.converter.PatientConverter.Companion.toRegisterResultDTO
+import com.hdj.backend_assignment.global.enums.SexCode
 import com.hdj.backend_assignment.repository.HospitalRepository
 import com.hdj.backend_assignment.repository.PatientRepository
 import com.hdj.backend_assignment.web.dto.PatientRequestDTO
@@ -32,5 +33,18 @@ class PatientServiceImpl(
     override fun getPatient(patientId: Long): PatientResponseDTO.GetResultDTO {
 
         return toGetResultDTO(patientRepository.findById(patientId).orElseThrow())
+    }
+
+    override fun updatePatient(patientId: Long, request: PatientRequestDTO.UpdateDTO): PatientResponseDTO.GetResultDTO {
+
+        val patient = patientRepository.findById(patientId).orElseThrow()
+
+        request.patientName?.let { patient.patientName = it }
+        request.registrationNumber?.let { patient.registrationNumber = it }
+        request.sexCode?.let { patient.sexCode = SexCode.from(it) }
+        request.birthDate?.let { patient.birthDate = it }
+        request.phoneNumber?.let { patient.phoneNumber = it }
+
+        return toGetResultDTO(patientRepository.save(patient))
     }
 }

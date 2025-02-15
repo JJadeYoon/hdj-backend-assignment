@@ -9,4 +9,6 @@ interface PatientService {
     fun registerPatient(request: PatientRequestDTO.RegisterDTO): PatientResponseDTO.RegisterResultDTO
 
     fun getPatient(patientId: Long): PatientResponseDTO.GetResultDTO
+
+    fun updatePatient(patientId: Long, request: PatientRequestDTO.UpdateDTO): PatientResponseDTO.GetResultDTO
 }
