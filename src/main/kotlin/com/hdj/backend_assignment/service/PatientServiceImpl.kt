@@ -47,4 +47,8 @@ class PatientServiceImpl(
 
         return toGetResultDTO(patientRepository.save(patient))
     }
+
+    override fun deletePatient(patientId: Long) {
+        patientRepository.deleteById(patientId)
+    }
 }
