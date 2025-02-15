@@ -14,11 +14,9 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/patients")
 class PatientRestController(private val patientService: PatientService) {
 
-    @PostMapping("/register")
+    @PostMapping
     fun registerPatient(@RequestBody request: PatientRequestDTO.RegisterDTO): ApiResponse<PatientResponseDTO.RegisterResultDTO> {
 
-        val patient = patientService.registerPatient(request)
-
-        return ApiResponse.ok(PatientConverter.toRegisterResultDTO(patient))
+        return ApiResponse.ok(patientService.registerPatient(request))
     }
 }
