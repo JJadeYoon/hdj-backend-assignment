@@ -12,7 +12,6 @@ class PatientConverter {
 
         fun toPatient(request: PatientRequestDTO.RegisterDTO, hospital: Hospital): Patient {
             return Patient(
-                id = request.id,
                 hospital = hospital,
                 patientName = request.patientName,
                 registrationNumber = request.registrationNumber,
