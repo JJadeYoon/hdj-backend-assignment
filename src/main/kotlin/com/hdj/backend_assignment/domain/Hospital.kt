@@ -8,11 +8,11 @@ import jakarta.persistence.*
 class Hospital(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long,
+    val id: Long? = null,
 
     var hospitalName: String,
 
     var medicalInstitutionNumber: String,
 
     var hospitalDirectorName: String
-): BaseEntity()
+) : BaseEntity()

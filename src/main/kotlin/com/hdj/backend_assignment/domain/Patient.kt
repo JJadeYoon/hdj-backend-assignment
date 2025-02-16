@@ -11,7 +11,7 @@ import org.hibernate.annotations.SoftDelete
 class Patient(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long,
+    val id: Long? = null,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hospital_id")
@@ -27,4 +27,4 @@ class Patient(
     var birthDate: String?,
 
     var phoneNumber: String?
-): BaseEntity()
+) : BaseEntity()

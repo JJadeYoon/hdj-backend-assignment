@@ -10,7 +10,7 @@ import java.time.LocalDateTime
 class Visit(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long,
+    val id: Long? = null,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hospital_id")
@@ -24,4 +24,4 @@ class Visit(
 
     @Enumerated(EnumType.STRING)
     var visitStatusCode: VisitStatusCode
-): BaseEntity()
+) : BaseEntity()
