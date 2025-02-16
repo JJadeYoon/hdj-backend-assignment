@@ -1,0 +1,52 @@
+= 병원 환자 관리 REST API 문서
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+
+[[overview]]
+== Overview
+
+[[overview-http-verbs]]
+=== HTTP verbs
+
+본 REST API에서 사용하는 HTTP verbs입니다.
+
+|===
+| Verb | Usage
+
+| `GET`
+| 리소스를 조회합니다
+
+| `POST`
+| 새 리소스를 생성합니다
+
+| `PUT`
+| 기존 리소스를 수정합니다
+
+| `DELETE`
+| 기존 리소스를 삭제합니다
+|===
+
+[[overview-http-status-codes]]
+=== HTTP status codes
+
+|===
+| Status code | Usage
+
+| `200 OK`
+| 요청을 성공적으로 처리했습니다
+
+| `201 Created`
+| 새 리소스를 성공적으로 생성했습니다
+
+| `400 Bad Request`
+| 잘못된 요청입니다
+
+| `404 Not Found`
+| 요청한 리소스가 존재하지 않습니다
+|===
+
+include::patients.adoc[]

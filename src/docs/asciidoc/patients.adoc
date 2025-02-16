@@ -1,0 +1,17 @@
+[[patients]]
+== 환자 API
+
+[[patients-get]]
+=== 환자 조회
+
+.request
+include::{snippets}/patient/patient-get/http-request.adoc[]
+
+.path-parameters
+include::{snippets}/patient/patient-get/path-parameters.adoc[]
+
+.response
+include::{snippets}/patient/patient-get/http-response.adoc[]
+
+.response-fields
+include::{snippets}/patient/patient-get/response-fields.adoc[]
