@@ -1,5 +1,8 @@
 package com.hdj.backend_assignment.web.dto
 
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Pageable
+
 class PatientRequestDTO {
 
     data class RegisterDTO(
@@ -19,7 +22,15 @@ class PatientRequestDTO {
         var phoneNumber: String? = null
     }
 
-    class SearchDTO {
-
+    data class SearchDTO(
+        val pageNo: Int = 1,
+        val pageSize: Int = 10,
+        val patientName: String? = null,
+        val registrationNumber: String? = null,
+        val birthDate: String? = null,
+    ) {
+        fun toPageable(): Pageable {
+            return PageRequest.of(pageNo - 1, pageSize)
+        }
     }
 }

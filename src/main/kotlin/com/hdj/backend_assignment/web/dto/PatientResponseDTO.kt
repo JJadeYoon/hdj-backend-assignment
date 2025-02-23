@@ -18,8 +18,4 @@ class PatientResponseDTO {
         val birthDate: String?,
         val phoneNumber: String?
     )
-
-    class PageResponse<T> {
-
-    }
 }

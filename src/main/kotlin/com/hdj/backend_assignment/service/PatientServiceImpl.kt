@@ -6,6 +6,7 @@ import com.hdj.backend_assignment.converter.PatientConverter.Companion.toRegiste
 import com.hdj.backend_assignment.global.enums.SexCode
 import com.hdj.backend_assignment.repository.HospitalRepository
 import com.hdj.backend_assignment.repository.PatientRepository
+import com.hdj.backend_assignment.web.dto.PageResponseDTO
 import com.hdj.backend_assignment.web.dto.PatientRequestDTO
 import com.hdj.backend_assignment.web.dto.PatientResponseDTO
 import org.springframework.stereotype.Service
@@ -53,7 +54,7 @@ class PatientServiceImpl(
     }
 
     @Transactional(readOnly = true)
-    override fun searchPatient(request: PatientRequestDTO.SearchDTO): PatientResponseDTO.PageResponse<PatientResponseDTO.GetResultDTO> {
-        return PatientResponseDTO.PageResponse()
+    override fun searchPatient(request: PatientRequestDTO.SearchDTO): PageResponseDTO.PageResponse<PatientResponseDTO.GetResultDTO> {
+        return PageResponseDTO.PageResponse()
     }
 }

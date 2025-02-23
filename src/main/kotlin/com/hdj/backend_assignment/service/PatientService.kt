@@ -1,5 +1,6 @@
 package com.hdj.backend_assignment.service
 
+import com.hdj.backend_assignment.web.dto.PageResponseDTO
 import com.hdj.backend_assignment.web.dto.PatientRequestDTO
 import com.hdj.backend_assignment.web.dto.PatientResponseDTO
 
@@ -13,5 +14,5 @@ interface PatientService {
 
     fun deletePatient(patientId: Long)
 
-    fun searchPatient(request: PatientRequestDTO.SearchDTO): PatientResponseDTO.PageResponse<PatientResponseDTO.GetResultDTO>
+    fun searchPatient(request: PatientRequestDTO.SearchDTO): PageResponseDTO.PageResponse<PatientResponseDTO.GetResultDTO>
 }
