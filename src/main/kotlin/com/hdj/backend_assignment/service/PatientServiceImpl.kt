@@ -51,4 +51,9 @@ class PatientServiceImpl(
     override fun deletePatient(patientId: Long) {
         patientRepository.deleteById(patientId)
     }
+
+    @Transactional(readOnly = true)
+    override fun searchPatient(request: PatientRequestDTO.SearchDTO): PatientResponseDTO.PageResponse<PatientResponseDTO.GetResultDTO> {
+        return PatientResponseDTO.PageResponse()
+    }
 }

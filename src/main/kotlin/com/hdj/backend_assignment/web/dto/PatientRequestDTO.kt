@@ -18,4 +18,8 @@ class PatientRequestDTO {
         var birthDate: String? = null
         var phoneNumber: String? = null
     }
+
+    class SearchDTO {
+
+    }
 }
