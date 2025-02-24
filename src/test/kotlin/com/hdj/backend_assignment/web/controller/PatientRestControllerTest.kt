@@ -37,7 +37,7 @@ class PatientRestControllerTest {
     private lateinit var patientRepository: PatientRepository
 
     private lateinit var savedHospital: Hospital
-    private lateinit var savedPatient: Patient
+    private lateinit var savedPatients: List<Patient>
 
     @BeforeEach
     fun setUp() {
@@ -50,14 +50,40 @@ class PatientRestControllerTest {
         )
         println(savedHospital)
 
-        savedPatient = patientRepository.save(
-            Patient(
-                hospital = savedHospital,
-                patientName = "김환자",
-                registrationNumber = "123456-1234567",
-                sexCode = SexCode.MALE,
-                birthDate = "1990-01-01",
-                phoneNumber = "010-1234-5678"
+        savedPatients = patientRepository.saveAll(
+            listOf(
+                Patient(
+                    hospital = savedHospital,
+                    patientName = "김환자",
+                    registrationNumber = "123456-1234567",
+                    sexCode = SexCode.MALE,
+                    birthDate = "1990-01-01",
+                    phoneNumber = "010-1234-5678"
+                ),
+                Patient(
+                    hospital = savedHospital,
+                    patientName = "이환자",
+                    registrationNumber = "123456-2345678",
+                    sexCode = SexCode.FEMALE,
+                    birthDate = "1992-02-02",
+                    phoneNumber = "010-2345-6789"
+                ),
+                Patient(
+                    hospital = savedHospital,
+                    patientName = "박환자",
+                    registrationNumber = "123456-3456789",
+                    sexCode = SexCode.MALE,
+                    birthDate = "1995-03-03",
+                    phoneNumber = "010-3456-7890"
+                ),
+                Patient(
+                    hospital = savedHospital,
+                    patientName = "김환자",
+                    registrationNumber = "123456-4567890",
+                    sexCode = SexCode.FEMALE,
+                    birthDate = "1998-04-04",
+                    phoneNumber = "010-4567-8901"
+                )
             )
         )
     }
@@ -65,7 +91,7 @@ class PatientRestControllerTest {
     @Test
     fun `환자 조회`() {
         // given
-        val patientId = 1L
+        val patientId = savedPatients.first().id
 
         // when
         mockMvc.perform(
@@ -96,4 +122,5 @@ class PatientRestControllerTest {
 
         // then
     }
+
 }
