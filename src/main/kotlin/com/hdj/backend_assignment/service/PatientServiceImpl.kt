@@ -49,11 +49,20 @@ class PatientServiceImpl(
     }
 
     override fun deletePatient(patientId: Long) {
+
         patientRepository.deleteById(patientId)
     }
 
     @Transactional(readOnly = true)
     override fun searchPatient(request: PatientRequestDTO.SearchDTO): PatientResponseDTO.PatientListDTO {
-        TODO()
+
+        val patients = patientRepository.searchPatient(
+            request.patientName,
+            request.registrationNumber,
+            request.birthDate,
+            request.toPageable()
+        )
+
+        TODO("Convert patients to PatientListDTO")
     }
 }
