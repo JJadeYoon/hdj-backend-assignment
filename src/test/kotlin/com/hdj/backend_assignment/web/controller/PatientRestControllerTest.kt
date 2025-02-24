@@ -124,7 +124,7 @@ class PatientRestControllerTest {
     }
 
     @Test
-    fun `환자 이름 검색`() {
+    fun `환자 검색`() {
         // when & then
         mockMvc.perform(
             get("/patients")
@@ -150,24 +150,18 @@ class PatientRestControllerTest {
                         fieldWithPath("isSuccess").description("성공 여부"),
                         fieldWithPath("code").description("응답 코드"),
                         fieldWithPath("message").description("응답 메시지"),
-                        fieldWithPath("result.content[]").description("환자 목록"),
-                        fieldWithPath("result.content[].patientId").description("환자 ID"),
-                        fieldWithPath("result.content[].hospitalId").description("병원 ID"),
-                        fieldWithPath("result.content[].patientName").description("환자 이름"),
-                        fieldWithPath("result.content[].registrationNumber").description("환자 등록 번호"),
-                        fieldWithPath("result.content[].sexCode").description("환자 성별"),
-                        fieldWithPath("result.content[].birthDate").description("환자 생년월일"),
-                        fieldWithPath("result.content[].phoneNumber").description("환자 전화번호"),
-                        fieldWithPath("result.pageable").description("페이징 정보"),
+                        fieldWithPath("result.patientList[]").description("환자 목록"),
+                        fieldWithPath("result.patientList[].patientId").description("환자 ID"),
+                        fieldWithPath("result.patientList[].hospitalId").description("병원 ID"),
+                        fieldWithPath("result.patientList[].patientName").description("환자 이름"),
+                        fieldWithPath("result.patientList[].registrationNumber").description("환자 등록 번호"),
+                        fieldWithPath("result.patientList[].sexCode").description("환자 성별"),
+                        fieldWithPath("result.patientList[].birthDate").description("환자 생년월일"),
+                        fieldWithPath("result.patientList[].phoneNumber").description("환자 전화번호"),
                         fieldWithPath("result.totalElements").description("전체 결과 수"),
                         fieldWithPath("result.totalPages").description("전체 페이지 수"),
-                        fieldWithPath("result.last").description("마지막 페이지 여부"),
-                        fieldWithPath("result.size").description("페이지 크기"),
-                        fieldWithPath("result.number").description("현재 페이지 번호"),
-                        fieldWithPath("result.sort").description("정렬 정보"),
-                        fieldWithPath("result.numberOfElements").description("현재 페이지의 요소 수"),
-                        fieldWithPath("result.first").description("첫 페이지 여부"),
-                        fieldWithPath("result.empty").description("결과가 비어있는지 여부")
+                        fieldWithPath("result.currentPage").description("현재 페이지 번호"),
+                        fieldWithPath("result.pageSize").description("페이지 크기")
                     )
                 )
             )
@@ -175,11 +169,11 @@ class PatientRestControllerTest {
         // 다양한 검색 조건 테스트
         mockMvc.perform(
             get("/patients")
-                .param("patientName", "김")
+                .param("patientName", "김환자")
                 .contentType("application/json")
         )
             .andExpect(status().isOk)
-            .andExpect(jsonPath("$.result.content[0].patientName").value("김환자"))
+            .andExpect(jsonPath("$.result.patientList[0].patientName").value("김환자"))
 
         // 페이징 테스트
         mockMvc.perform(
@@ -188,6 +182,6 @@ class PatientRestControllerTest {
                 .contentType("application/json")
         )
             .andExpect(status().isOk)
-            .andExpect(jsonPath("$.result.content.length()").value(2))
+            .andExpect(jsonPath("$.result.patientList.length()").value(2))
     }
 }

@@ -1,7 +1,8 @@
 package com.hdj.backend_assignment.service
 
 import com.hdj.backend_assignment.converter.PatientConverter
-import com.hdj.backend_assignment.converter.PatientConverter.Companion.toGetResultDTO
+import com.hdj.backend_assignment.converter.PatientConverter.Companion.toPatientDTO
+import com.hdj.backend_assignment.converter.PatientConverter.Companion.toPatientListDTO
 import com.hdj.backend_assignment.converter.PatientConverter.Companion.toRegisterResultDTO
 import com.hdj.backend_assignment.global.enums.SexCode
 import com.hdj.backend_assignment.repository.HospitalRepository
@@ -16,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional
 class PatientServiceImpl(
     private val patientRepository: PatientRepository,
     private val hospitalRepository: HospitalRepository
-) : PatientService{
+) : PatientService {
 
     override fun registerPatient(request: PatientRequestDTO.RegisterDTO): PatientResponseDTO.RegisterResultDTO {
 
@@ -32,7 +33,7 @@ class PatientServiceImpl(
     @Transactional(readOnly = true)
     override fun getPatient(patientId: Long): PatientResponseDTO.PatientDTO {
 
-        return toGetResultDTO(patientRepository.findById(patientId).orElseThrow())
+        return toPatientDTO(patientRepository.findById(patientId).orElseThrow())
     }
 
     override fun updatePatient(patientId: Long, request: PatientRequestDTO.UpdateDTO): PatientResponseDTO.PatientDTO {
@@ -45,7 +46,7 @@ class PatientServiceImpl(
         request.birthDate?.let { patient.birthDate = it }
         request.phoneNumber?.let { patient.phoneNumber = it }
 
-        return toGetResultDTO(patientRepository.save(patient))
+        return toPatientDTO(patientRepository.save(patient))
     }
 
     override fun deletePatient(patientId: Long) {
@@ -56,13 +57,13 @@ class PatientServiceImpl(
     @Transactional(readOnly = true)
     override fun searchPatient(request: PatientRequestDTO.SearchDTO): PatientResponseDTO.PatientListDTO {
 
-        val patients = patientRepository.searchPatient(
-            request.patientName,
-            request.registrationNumber,
-            request.birthDate,
-            request.toPageable()
+        return toPatientListDTO(
+            patientRepository.searchPatient(
+                request.patientName,
+                request.registrationNumber,
+                request.birthDate,
+                request.toPageable()
+            )
         )
-
-        TODO("Convert patients to PatientListDTO")
     }
 }

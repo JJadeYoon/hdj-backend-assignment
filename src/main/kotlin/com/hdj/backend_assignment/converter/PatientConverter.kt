@@ -5,6 +5,7 @@ import com.hdj.backend_assignment.domain.Patient
 import com.hdj.backend_assignment.global.enums.SexCode
 import com.hdj.backend_assignment.web.dto.PatientRequestDTO
 import com.hdj.backend_assignment.web.dto.PatientResponseDTO
+import org.springframework.data.domain.Page
 
 class PatientConverter {
 
@@ -30,7 +31,7 @@ class PatientConverter {
             )
         }
 
-        fun toGetResultDTO(patient: Patient): PatientResponseDTO.PatientDTO {
+        fun toPatientDTO(patient: Patient): PatientResponseDTO.PatientDTO {
             return PatientResponseDTO.PatientDTO(
                 patientId = patient.id,
                 hospitalId = patient.hospital.id,
@@ -41,5 +42,15 @@ class PatientConverter {
                 phoneNumber = patient.phoneNumber,
                 )
             }
+
+        fun toPatientListDTO(patientPage: Page<Patient>): PatientResponseDTO.PatientListDTO {
+            return PatientResponseDTO.PatientListDTO(
+                patientList = patientPage.content.map { toPatientDTO(it) },
+                totalElements = patientPage.totalElements,
+                totalPages = patientPage.totalPages,
+                currentPage = patientPage.number + 1,
+                pageSize = patientPage.size
+            )
+        }
     }
 }
