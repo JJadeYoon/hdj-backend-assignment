@@ -2,6 +2,7 @@ plugins {
 	kotlin("jvm") version "1.9.25"
 	kotlin("plugin.spring") version "1.9.25"
 	kotlin("plugin.jpa") version "1.9.25"
+	kotlin("kapt") version "1.9.25"
 	id("org.springframework.boot") version "3.4.1"
 	id("io.spring.dependency-management") version "1.1.7"
 	id("org.asciidoctor.jvm.convert") version "3.3.2"
@@ -30,14 +31,18 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
-
-	"asciidoctorExt"("org.springframework.restdocs:spring-restdocs-asciidoctor")
-	testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
-
 	runtimeOnly("com.h2database:h2")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+	// asciidoctor
+	"asciidoctorExt"("org.springframework.restdocs:spring-restdocs-asciidoctor")
+	testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
+
+	//querydsl
+	implementation("com.querydsl:querydsl-jpa:5.0.0:jakarta")
+	kapt("com.querydsl:querydsl-apt:5.0.0:jakarta")
 }
 
 kotlin {
