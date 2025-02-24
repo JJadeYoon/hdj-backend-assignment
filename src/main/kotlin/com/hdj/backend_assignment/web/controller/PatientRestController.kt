@@ -2,7 +2,6 @@ package com.hdj.backend_assignment.web.controller
 
 import com.hdj.backend_assignment.apiPayload.ApiResponse
 import com.hdj.backend_assignment.service.PatientService
-import com.hdj.backend_assignment.web.dto.PageResponseDTO
 import com.hdj.backend_assignment.web.dto.PatientRequestDTO.*
 import com.hdj.backend_assignment.web.dto.PatientResponseDTO.*
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -30,7 +29,7 @@ class PatientRestController(private val patientService: PatientService) {
     @GetMapping("/{patientId}")
     fun getPatient(
         @PathVariable("patientId") patientId: Long
-    ): ApiResponse<GetResultDTO> {
+    ): ApiResponse<PatientDTO> {
 
         return ApiResponse.ok(patientService.getPatient(patientId))
     }
@@ -39,7 +38,7 @@ class PatientRestController(private val patientService: PatientService) {
     fun updatePatient(
         @PathVariable patientId: Long,
         @RequestBody request: UpdateDTO
-    ): ApiResponse<GetResultDTO> {
+    ): ApiResponse<PatientDTO> {
 
         return ApiResponse.ok(patientService.updatePatient(patientId, request))
     }
@@ -55,7 +54,7 @@ class PatientRestController(private val patientService: PatientService) {
     @GetMapping
     fun searchPatient(
         @ModelAttribute request: SearchDTO
-    ): ApiResponse<PageResponseDTO<GetResultDTO>> {
+    ): ApiResponse<PatientListDTO> {
 
         return ApiResponse.ok(patientService.searchPatient(request))
     }

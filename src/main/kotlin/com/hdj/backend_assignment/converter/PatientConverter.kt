@@ -30,8 +30,8 @@ class PatientConverter {
             )
         }
 
-        fun toGetResultDTO(patient: Patient): PatientResponseDTO.GetResultDTO {
-            return PatientResponseDTO.GetResultDTO(
+        fun toGetResultDTO(patient: Patient): PatientResponseDTO.PatientDTO {
+            return PatientResponseDTO.PatientDTO(
                 patientId = patient.id,
                 hospitalId = patient.hospital.id,
                 patientName = patient.patientName,

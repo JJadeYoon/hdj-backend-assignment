@@ -9,7 +9,7 @@ class PatientResponseDTO {
         val registrationNumber: String
     )
 
-    data class GetResultDTO(
+    data class PatientDTO(
         val patientId: Long?,
         val hospitalId: Long?,
         val patientName: String,
@@ -17,5 +17,13 @@ class PatientResponseDTO {
         val sexCode: String,
         val birthDate: String?,
         val phoneNumber: String?
+    )
+
+    data class PatientListDTO(
+        val patientList: List<PatientDTO>,
+        val totalElements: Long,
+        val totalPages: Int,
+        val currentPage: Int,
+        val pageSize: Int
     )
 }
