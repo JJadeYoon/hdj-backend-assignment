@@ -17,8 +17,8 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get
 import org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath
 import org.springframework.restdocs.payload.PayloadDocumentation.responseFields
-import org.springframework.restdocs.request.RequestDocumentation.parameterWithName
-import org.springframework.restdocs.request.RequestDocumentation.pathParameters
+import org.springframework.restdocs.request.RequestDocumentation.*
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 @SpringBootTest
@@ -37,7 +37,7 @@ class PatientRestControllerTest {
     private lateinit var patientRepository: PatientRepository
 
     private lateinit var savedHospital: Hospital
-    private lateinit var savedPatient: Patient
+    private lateinit var savedPatients: List<Patient>
 
     @BeforeEach
     fun setUp() {
@@ -50,14 +50,40 @@ class PatientRestControllerTest {
         )
         println(savedHospital)
 
-        savedPatient = patientRepository.save(
-            Patient(
-                hospital = savedHospital,
-                patientName = "김환자",
-                registrationNumber = "123456-1234567",
-                sexCode = SexCode.MALE,
-                birthDate = "1990-01-01",
-                phoneNumber = "010-1234-5678"
+        savedPatients = patientRepository.saveAll(
+            listOf(
+                Patient(
+                    hospital = savedHospital,
+                    patientName = "김환자",
+                    registrationNumber = "123456-1234567",
+                    sexCode = SexCode.MALE,
+                    birthDate = "1990-01-01",
+                    phoneNumber = "010-1234-5678"
+                ),
+                Patient(
+                    hospital = savedHospital,
+                    patientName = "이환자",
+                    registrationNumber = "123456-2345678",
+                    sexCode = SexCode.FEMALE,
+                    birthDate = "1992-02-02",
+                    phoneNumber = "010-2345-6789"
+                ),
+                Patient(
+                    hospital = savedHospital,
+                    patientName = "박환자",
+                    registrationNumber = "123456-3456789",
+                    sexCode = SexCode.MALE,
+                    birthDate = "1995-03-03",
+                    phoneNumber = "010-3456-7890"
+                ),
+                Patient(
+                    hospital = savedHospital,
+                    patientName = "김환자",
+                    registrationNumber = "123456-4567890",
+                    sexCode = SexCode.FEMALE,
+                    birthDate = "1998-04-04",
+                    phoneNumber = "010-4567-8901"
+                )
             )
         )
     }
@@ -65,7 +91,7 @@ class PatientRestControllerTest {
     @Test
     fun `환자 조회`() {
         // given
-        val patientId = 1L
+        val patientId = savedPatients.first().id
 
         // when
         mockMvc.perform(
@@ -95,5 +121,67 @@ class PatientRestControllerTest {
             )
 
         // then
+    }
+
+    @Test
+    fun `환자 검색`() {
+        // when & then
+        mockMvc.perform(
+            get("/patients")
+                .param("pageNo", "1")
+                .param("pageSize", "10")
+                .param("patientName", "김환자")
+                .param("registrationNumber", "123456-1234567")
+                .param("birthDate", "1990-01-01")
+                .contentType("application/json")
+        )
+            .andExpect(status().isOk)
+            .andDo(
+                document(
+                    "patient/patient-search",
+                    queryParameters(
+                        parameterWithName("pageNo").description("페이지 번호").optional(),
+                        parameterWithName("pageSize").description("페이지 크기").optional(),
+                        parameterWithName("patientName").description("환자 이름").optional(),
+                        parameterWithName("registrationNumber").description("등록 번호").optional(),
+                        parameterWithName("birthDate").description("생년월일").optional()
+                    ),
+                    responseFields(
+                        fieldWithPath("isSuccess").description("성공 여부"),
+                        fieldWithPath("code").description("응답 코드"),
+                        fieldWithPath("message").description("응답 메시지"),
+                        fieldWithPath("result.patientList[]").description("환자 목록"),
+                        fieldWithPath("result.patientList[].patientId").description("환자 ID"),
+                        fieldWithPath("result.patientList[].hospitalId").description("병원 ID"),
+                        fieldWithPath("result.patientList[].patientName").description("환자 이름"),
+                        fieldWithPath("result.patientList[].registrationNumber").description("환자 등록 번호"),
+                        fieldWithPath("result.patientList[].sexCode").description("환자 성별"),
+                        fieldWithPath("result.patientList[].birthDate").description("환자 생년월일"),
+                        fieldWithPath("result.patientList[].phoneNumber").description("환자 전화번호"),
+                        fieldWithPath("result.totalElements").description("전체 결과 수"),
+                        fieldWithPath("result.totalPages").description("전체 페이지 수"),
+                        fieldWithPath("result.currentPage").description("현재 페이지 번호"),
+                        fieldWithPath("result.pageSize").description("페이지 크기")
+                    )
+                )
+            )
+
+        // 다양한 검색 조건 테스트
+        mockMvc.perform(
+            get("/patients")
+                .param("patientName", "김환자")
+                .contentType("application/json")
+        )
+            .andExpect(status().isOk)
+            .andExpect(jsonPath("$.result.patientList[0].patientName").value("김환자"))
+
+        // 페이징 테스트
+        mockMvc.perform(
+            get("/patients")
+                .param("pageSize", "2")
+                .contentType("application/json")
+        )
+            .andExpect(status().isOk)
+            .andExpect(jsonPath("$.result.patientList.length()").value(2))
     }
 }

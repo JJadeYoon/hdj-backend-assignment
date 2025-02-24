@@ -7,9 +7,11 @@ interface PatientService {
 
     fun registerPatient(request: PatientRequestDTO.RegisterDTO): PatientResponseDTO.RegisterResultDTO
 
-    fun getPatient(patientId: Long): PatientResponseDTO.GetResultDTO
+    fun getPatient(patientId: Long): PatientResponseDTO.PatientDTO
 
-    fun updatePatient(patientId: Long, request: PatientRequestDTO.UpdateDTO): PatientResponseDTO.GetResultDTO
+    fun updatePatient(patientId: Long, request: PatientRequestDTO.UpdateDTO): PatientResponseDTO.PatientDTO
 
     fun deletePatient(patientId: Long)
+
+    fun searchPatient(request: PatientRequestDTO.SearchDTO): PatientResponseDTO.PatientListDTO
 }
