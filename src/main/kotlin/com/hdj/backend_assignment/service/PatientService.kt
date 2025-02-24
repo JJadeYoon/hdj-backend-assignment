@@ -14,5 +14,5 @@ interface PatientService {
 
     fun deletePatient(patientId: Long)
 
-    fun searchPatient(request: PatientRequestDTO.SearchDTO): PageResponseDTO.PageResponse<PatientResponseDTO.GetResultDTO>
+    fun searchPatient(request: PatientRequestDTO.SearchDTO): PageResponseDTO<PatientResponseDTO.GetResultDTO>
 }

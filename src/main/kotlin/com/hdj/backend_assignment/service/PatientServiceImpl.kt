@@ -54,7 +54,7 @@ class PatientServiceImpl(
     }
 
     @Transactional(readOnly = true)
-    override fun searchPatient(request: PatientRequestDTO.SearchDTO): PageResponseDTO.PageResponse<PatientResponseDTO.GetResultDTO> {
-        return PageResponseDTO.PageResponse()
+    override fun searchPatient(request: PatientRequestDTO.SearchDTO): PageResponseDTO<PatientResponseDTO.GetResultDTO> {
+        TODO()
     }
 }
